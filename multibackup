@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Bailey Francher 12-18-25
+# Version 1.0
+
+# Ask user to enter files to be copied or use files from arguments.
+
+if [ $# -eq 0 ];then
+        read -r -p 'Enter file(s) create a backup of: ' -a files
+
+        if [[ "${#files[@]}" -eq 0 || -z "${files[0]}" ]]; then
+                printf 'Error: no file(s) provided.\n' >&2
+                exit 67
+        fi
+else
+        files=("$@")
+fi
+
+# Check is files that have be imput are acutally files and then copy them adding a date.
+for file in "${files[@]}"; do
+        if [[ ! -f "$file" ]]; then
+                printf "Error: '$file' is not a regular file. (must not be a direcotry)\n" >&2
+                exit 69
+        fi
+
+        cp -- "$file" "$(basename "$file").$(date +%Y%m%d).bak"
+        echo "Backup created $(basename "$file").$(date +%Y%m%d).bak"
+done
+
