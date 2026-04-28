@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Bailey Francher 12-18-25
 # Version 1.0
-Test
+
 # Ask user to enter files to be copied or use files from arguments.
 
 if [ $# -eq 0 ];then
@@ -22,7 +22,7 @@ for file in "${files[@]}"; do
                 exit 69
         fi
 
-        cp -- "$file" "$(basename "$file").$(date +%Y%m%d).bak"
-        echo "Backup created $(basename "$file").$(date +%Y%m%d).bak"
+        cp -- "$file" "$(basename "$file")_$(date +%Y%m%d).bak"
+        echo "Backup created $(basename "$file")_$(date +%Y%m%d).bak"
 done
 
